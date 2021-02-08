@@ -89,7 +89,6 @@ def registrar_voto():
     partido = request.get_json().get('partido', None)
     if hash and partido:
         votante = VotanteModel.query.filter_by(votante_hash=hash).first()
-        print(votante)
         voto = VotoModel(partido, votante)
         voto.save()
         sess = obtain_session()
@@ -97,7 +96,6 @@ def registrar_voto():
         result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
         elecciones = []
         for partido in result:
-            print(partido)
             partido_nombre = PartidoModel.query.filter_by(partido_id=partido[0]).first().partido_nombre
             elecciones.append({
                 'partido_nombre':partido_nombre,

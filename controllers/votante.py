@@ -58,6 +58,7 @@ class VotanteController(Resource):
                 'message': 'Error dni incorrecto'
             }, 500
         except Exception as e :
+            print(e)
             return {
                 'success': False,
                 'content': None,

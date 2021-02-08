@@ -17,7 +17,7 @@ app = Flask(__name__)
 cors = CORS(app)
 api = Api(app)
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:root@localhost:3306/webinarflask'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://b5h52w8xbsbsnkuh:hj0wkhdba46mjywj@z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/u2wup6o8i6s68pxg'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SECRET_KEY'] = 'webinar'
 socketio = SocketIO(app, cors_allowed_origins ='*')

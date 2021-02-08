@@ -1,5 +1,5 @@
 from config.sqlalchemy import bd
-
+from datetime import datetime, timedelta
 
 class VotanteModel(bd.Model):
     __tablename__ = 't_votante'
@@ -10,28 +10,30 @@ class VotanteModel(bd.Model):
         255), nullable=False, unique=True)
     votante_apellido = bd.Column(
         type_=bd.String(255), nullable=False, unique=True)
-    votante_habilitado = bd.Column(type_=bd.Boolean, nullable=False)
+    votante_fechavencimiento = bd.Column(type_=bd.DateTime(), nullable=False, default=False)
     votante_hash = bd.Column(type_=bd.String(255), nullable=False)
     # INVERSE RELATION 
     votante_votos = bd.relationship('VotoModel', backref='votanteVotos')
 
-    def __init__(self, email, nombre, apellido, habilitado, hash):
+    def __init__(self,dni, email, nombre, apellido, hash):
+        self.votante_dni = dni
         self.votante_email = email
         self.votante_nombre = nombre
         self.votante_apellido = apellido
-        self.votante_habilitado = habilitado
+        self.votante_fechavencimiento = datetime.now() + timedelta(minutes=30)
         self.votante_hash = hash
 
     def json(self):
         return {
-            'id': self.votante_id,
+            'dni': self.votante_dni,
             'votante_email': self.votante_email,
             'votante_nombre': self.votante_nombre,
-            'votante_apellido': self.votante_apellido,
-            'votante_habilitado': self.votante_habilitado,
-            'votante_hash': self.votante_hash,
+            'votante_apellido': self.votante_apellido
         }
 
     def save(self):
         bd.session.add(self)
         bd.session.commit()
+    
+    def __str__(self):
+        return self.votante_dni

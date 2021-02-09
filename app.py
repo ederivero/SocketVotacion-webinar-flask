@@ -21,7 +21,7 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={  
-        'app_name': "Test application"
+        'app_name': "Votaciones CodiGo - Swagger Documentation"
     }
 )
 app = Flask(__name__)

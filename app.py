@@ -3,7 +3,7 @@ from flask_restful import Api
 from flask_cors import CORS
 from config.sqlalchemy import bd
 from datetime import datetime, timedelta
-from flask_socketio import SocketIO, send, emit
+from flask_socketio import SocketIO
 # import the models
 from models.partido import PartidoModel
 from models.votante import VotanteModel

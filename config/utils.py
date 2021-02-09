@@ -2,16 +2,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
 import requests
-import json
-msg = MIMEMultipart()
-# message = 'Mensaje de prueba'
 
+msg = MIMEMultipart()
 password = 'Votaciones2021'
 msg['From'] = 'votacioneswebinarcodigo@outlook.com'
-
-# password = 'Pruebas2020'
-# msg['From'] = 'testappseduardo@gmail.com'
-# msg['To'] = 'ederiveroman@gmail.com'
 msg['Subject'] = 'Link de Votacion - Webinar CodiGo'
 
 def sendMail(to, nombre, hash):

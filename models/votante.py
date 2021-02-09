@@ -20,7 +20,7 @@ class VotanteModel(bd.Model):
         self.votante_email = email
         self.votante_nombre = nombre
         self.votante_apellido = apellido
-        self.votante_fechavencimiento = datetime.now() + timedelta(minutes=30)
+        self.votante_fechavencimiento = datetime.now() + timedelta(minutes=30) - timedelta(hours=5)
         self.votante_hash = hash
 
     def json(self):

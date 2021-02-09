@@ -1,0 +1,166 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentación de la api de votaciones del webinar de CodiGo.",
+    "version": "1.0.0",
+    "title": "Votaciones CodiGo",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "ederiveroman@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "votaciones-webinarcodigo.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "votacion",
+      "description": "Los controladores de la API"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/registro": {
+      "post": {
+        "tags": [
+          "votacion"
+        ],
+        "summary": "Registro de un nuevo votante",
+        "description": "Se valida su dni con codigo de verificación, además, si ya voto y si es correcto se envía un mail con el link de votación",
+        "operationId": "registro",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Mandar el email, dni y número de verificación del votante",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Registro"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Correo enviado"
+          },
+          "500": {
+            "description": "Data invalida"
+          }
+        }
+      }
+    },
+    "/voto": {
+      "post": {
+        "tags": [
+          "votacion"
+        ],
+        "summary": "Registro del voto",
+        "description": "Se registra el voto del elector, no se puede votar mas de una vez",
+        "operationId": "voto",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Mandar el email, dni y número de verificación del votante",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Voto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "voto registrado correctamente"
+          },
+          "500": {
+            "description": "Data invalida"
+          }
+        }
+      }
+    },
+    "/votante": {
+      "get": {
+        "tags": [
+          "votacion"
+        ],
+        "summary": "Registro del voto",
+        "description": "Se registra el voto del elector, no se puede votar mas de una vez",
+        "operationId": "votante",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "description": "Hash del votante para ver si es valido, si aun tiene tiempo y si no voto aún",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "voto registrado correctamente"
+          },
+          "500": {
+            "description": "Data invalida"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Registro": {
+      "type": "object",
+      "properties": {
+        "votante_email": {
+          "type": "string"
+        },
+        "votante_dni": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "votante_verificacion": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Voto": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "partido": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Conoce más de CodiGo",
+    "url": "https://codigo.edu.pe/"
+  }
+}

@@ -5,7 +5,7 @@ import requests
 import os
 
 msg = MIMEMultipart()
-password = os.environ['password_mail']
+password = os.environ['email_password']
 msg['From'] = 'votacioneswebinarcodigo@outlook.com'
 msg['Subject'] = 'Link de Votacion - Webinar CodiGo'
 
@@ -15,9 +15,7 @@ def sendMail(to, nombre, hash):
     msg.attach(MIMEText(message,'plain'))
     try:
         server = smtplib.SMTP('smtp.office365.com', 587)
-        # server = smtplib.SMTP('smtp.gmail.com: 587')
         server.starttls()
-        print(password)
         server.login(msg['From'], password)
         server.sendmail(msg['From'], msg['To'], msg.as_string())
         server.quit()
@@ -31,5 +29,6 @@ def buscarPersona(dni):
     headers = {
         'Authorization':'Bearer '+os.environ['token_apiperu'], 
         'Content-Type':'application/json'}
+    print(headers)
     r = requests.get(url, headers=headers)
     return r.json()

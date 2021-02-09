@@ -14,7 +14,7 @@ from sqlalchemy.orm.session import sessionmaker
 from controllers.votante import VotanteController
 # swagger
 from flask_swagger_ui import get_swaggerui_blueprint
-
+import os
 SWAGGER_URL = ''
 API_URL = '/static/swagger.json'
 swaggerui_blueprint = get_swaggerui_blueprint(
@@ -29,7 +29,7 @@ cors = CORS(app)
 api = Api(app)
 
 app.register_blueprint(swaggerui_blueprint)
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://b5h52w8xbsbsnkuh:hj0wkhdba46mjywj@z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/u2wup6o8i6s68pxg'
+app.config['SQLALCHEMY_DATABASE_URI']= os.environ['JAWSDB_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SECRET_KEY'] = 'webinar'
 socketio = SocketIO(app, cors_allowed_origins ='*')

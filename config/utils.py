@@ -2,9 +2,10 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib
 import requests
+import os
 
 msg = MIMEMultipart()
-password = 'Votaciones2021'
+password = os.environ['password_mail']
 msg['From'] = 'votacioneswebinarcodigo@outlook.com'
 msg['Subject'] = 'Link de Votacion - Webinar CodiGo'
 
@@ -27,7 +28,7 @@ def sendMail(to, nombre, hash):
 def buscarPersona(dni):
     url = 'https://apiperu.dev/api/dni/{}'.format(dni)
     headers = {
-        'Authorization':'Bearer 6287da8da77342f7e4aab59b670dbe153f0e803c2553e7a7dcbcc7d2510ba793', 
+        'Authorization':'Bearer '+os.environ['token_apiperu'], 
         'Content-Type':'application/json'}
     r = requests.get(url, headers=headers)
     return r.json()

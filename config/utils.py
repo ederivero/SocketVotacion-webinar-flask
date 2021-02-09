@@ -18,13 +18,11 @@ def sendMail(to, nombre, hash):
         server.starttls()
         server.login(msg['From'], password)
         server.sendmail(msg['From'], msg['To'], msg.as_string())
+        server.quit()
+        return True
     except Exception as e:
         print(e)
         return False
-    finally:
-        server.quit()
-        print("Envio correcto")
-        return True
 
 def buscarPersona(dni):
     url = 'https://apiperu.dev/api/dni/{}'.format(dni)

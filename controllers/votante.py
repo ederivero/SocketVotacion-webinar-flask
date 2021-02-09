@@ -32,12 +32,15 @@ class VotanteController(Resource):
             if persona['success']:
                 if(persona['data']['codigo_verificacion']== args['votante_verificacion']):
                     hash = uuid.uuid4().hex
-                    votante = VotanteModel(args['votante_dni'],  args['votante_email'], persona['data']['nombres'], persona['data']['apellido_paterno']+' '+persona['data']['apellido_materno'], hash)
-                    votante.save()
-                    if sendMail(votante.votante_email, persona['data']['nombre_completo'], hash):
+                    votante = VotanteModel.query.filter_by(votante_dni=args['votante_dni']).first()
+                    if votante:
+                        votante.delete()
+                    nuevoVotante = VotanteModel(args['votante_dni'],  args['votante_email'], persona['data']['nombres'], persona['data']['apellido_paterno']+' '+persona['data']['apellido_materno'], hash)
+                    nuevoVotante.save()
+                    if sendMail(nuevoVotante.votante_email, persona['data']['nombre_completo'], hash):
                         return {
                             'success': True,
-                            'content': votante.json(),
+                            'content': nuevoVotante.json(),
                             'message': 'Se creo el votante, que revise su correo para votar'
                         }, 201
                     else:

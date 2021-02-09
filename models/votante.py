@@ -37,3 +37,7 @@ class VotanteModel(bd.Model):
     
     def __str__(self):
         return self.votante_dni
+    
+    def delete(self):
+        bd.session.delete(self)
+        bd.session.commit()

@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_restful import Api
 from flask_cors import CORS
 from config.sqlalchemy import bd
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_socketio import SocketIO, send, emit
 # import the models
 from models.partido import PartidoModel
@@ -44,10 +44,11 @@ def base_url():
 @app.route('/votante')
 def validar_votante():
     id = request.args.get('id',None)
+    hora_actual = datetime.now() - timedelta(hours=5)
     if id:
         votante = VotanteModel.query.filter_by(votante_hash=id).first()
         if (votante is not None):
-            if (datetime.now() > votante.votante_fechavencimiento):
+            if (hora_actual > votante.votante_fechavencimiento):
                 return {
                     'success': False,
                     'content': None,

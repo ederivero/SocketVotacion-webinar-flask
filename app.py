@@ -68,7 +68,7 @@ def validar_votante():
                         resultado.append(partido.json())
                     return {
                         'success': True,
-                        'content': resultado,
+                        'content': {"expiracion":str(votante.votante_fechavencimiento), "partidos":resultado},
                         'message': None
                     }, 200
         else:

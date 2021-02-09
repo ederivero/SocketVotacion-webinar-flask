@@ -15,7 +15,7 @@ def sendMail(to, nombre, hash):
     message = 'Hola! {} \n Tu link para votar es: http://frontendwebinar.com/votar?id={}'.format(nombre, hash)
     msg.attach(MIMEText(message,'plain'))
     try:
-        server = smtplib.SMTP('smtp.gmail.com',587)
+        server = smtplib.SMTP('smtp.gmail.com: 587')
         server.starttls()
         server.login(msg['From'], password)
         server.sendmail(msg['From'], msg['To'], msg.as_string())
@@ -24,6 +24,7 @@ def sendMail(to, nombre, hash):
         return False
     finally:
         server.quit()
+        print("Envio correcto")
         return True
 
 def buscarPersona(dni):

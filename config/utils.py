@@ -17,6 +17,7 @@ def sendMail(to, nombre, hash):
         server = smtplib.SMTP('smtp.office365.com', 587)
         # server = smtplib.SMTP('smtp.gmail.com: 587')
         server.starttls()
+        print(password)
         server.login(msg['From'], password)
         server.sendmail(msg['From'], msg['To'], msg.as_string())
         server.quit()

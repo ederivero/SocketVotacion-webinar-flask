@@ -10,8 +10,8 @@ msg['From'] = 'votacioneswebinarcodigo@outlook.com'
 msg['Subject'] = 'Link de Votacion - Webinar CodiGo'
 
 def sendMail(to, nombre, hash):
-    msg['To'] = ''
-    message = ''
+    # msg['To'] = ''
+    # message = ''
     msg['To'] = to
     message = 'Hola! {} \n Tu link para votar es: https://jorgegarba.github.io/webinar-votaciones/#/cedula?id={}'.format(nombre, hash)
     msg.attach(MIMEText(message,'plain'))

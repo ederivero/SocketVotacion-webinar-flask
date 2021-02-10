@@ -31,6 +31,5 @@ def buscarPersona(dni):
     headers = {
         'Authorization':'Bearer '+os.environ['token_apiperu'], 
         'Content-Type':'application/json'}
-    print(headers)
     r = requests.get(url, headers=headers)
     return r.json()

@@ -132,6 +132,27 @@
         }
       }
     },
+    "/resultados": {
+      "get": {
+        "tags": [
+          "votacion"
+        ],
+        "summary": "Resultado de las votaaciones",
+        "description": "Se devuelven todos los resultados sin sockets",
+        "operationId": "resultado",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de partidos"
+          },
+          "500": {
+            "description": "Error en el servidor"
+          }
+        }
+      }
+    },
     "/partido": {
       "get": {
         "tags": [

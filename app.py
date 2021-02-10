@@ -12,6 +12,7 @@ from sqlalchemy import *
 from sqlalchemy.orm.session import sessionmaker
 #import the controllers
 from controllers.votante import VotanteController
+from controllers.partido import PartidoController
 # swagger
 from flask_swagger_ui import get_swaggerui_blueprint
 import os
@@ -106,9 +107,11 @@ def registrar_voto():
         result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
         elecciones = []
         for partido in result:
-            partido_nombre = PartidoModel.query.filter_by(partido_id=partido[0]).first().partido_nombre
+            partido_obj = PartidoModel.query.filter_by(partido_id=partido[0]).first()
             elecciones.append({
-                'partido_nombre':partido_nombre,
+                'partido_nombre':partido_obj.partido_nombre,
+                'partido_img_partido': partido_obj.partido_img_partido,
+                'partido_img_candidato': partido_obj.partido_img_candidato,
                 'votos': partido[1]
             })
         socketio.emit('votos',elecciones)
@@ -125,7 +128,7 @@ def registrar_voto():
         }, 500
 
 api.add_resource(VotanteController, '/registro')
-
+api.add_resource(PartidoController, '/partido')
 if __name__ == '__main__':
     socketio.run(app, debug=True)
     # app.run(debug=True)

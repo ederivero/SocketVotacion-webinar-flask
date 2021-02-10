@@ -64,6 +64,7 @@ def resultado():
             'partido_nombre_candidato': partido_obj.partido_nombre_candidato,
             'votos': partido[1]
         })
+    print(elecciones)
     return {
         'success': True,
         'content': elecciones,

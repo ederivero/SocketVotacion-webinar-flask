@@ -11,7 +11,7 @@ msg['Subject'] = 'Link de Votacion - Webinar CodiGo'
 
 def sendMail(to, nombre, hash):
     msg['To'] = to
-    message = 'Hola! {} \n Tu link para votar es: http://frontendwebinar.com/votar?id={}'.format(nombre, hash)
+    message = 'Hola! {} \n Tu link para votar es: https://jorgegarba.github.io/webinar-votaciones/#/cedula?id={}'.format(nombre, hash)
     msg.attach(MIMEText(message,'plain'))
     try:
         server = smtplib.SMTP('smtp.office365.com', 587)

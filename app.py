@@ -50,6 +50,24 @@ def create_tables():
     # bd.drop_all(app=app)
     bd.create_all(app=app)
 
+@app.route('/resultados')
+def resultado():
+    result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
+    elecciones = []
+    for partido in result:
+        partido_obj = PartidoModel.query.filter_by(partido_id=partido[0]).first()
+        elecciones.append({
+            'partido_nombre':partido_obj.partido_nombre,
+            'partido_img_partido': partido_obj.partido_img_partido,
+            'partido_img_candidato': partido_obj.partido_img_candidato,
+            'partido_nombre_candidato': partido_obj.partido_nombre_candidato,
+            'votos': partido[1]
+        })
+    return {
+        'success': True,
+        'content': elecciones,
+        'message': None
+    }
 
 @app.route('/votante')
 def validar_votante():

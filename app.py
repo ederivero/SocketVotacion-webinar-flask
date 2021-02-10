@@ -47,7 +47,7 @@ def obtain_session():
 @app.before_first_request
 def create_tables():
     bd.init_app(app)
-    bd.drop_all(app=app)
+    # bd.drop_all(app=app)
     bd.create_all(app=app)
 
 

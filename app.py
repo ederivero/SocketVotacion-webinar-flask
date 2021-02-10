@@ -112,6 +112,7 @@ def registrar_voto():
                 'partido_nombre':partido_obj.partido_nombre,
                 'partido_img_partido': partido_obj.partido_img_partido,
                 'partido_img_candidato': partido_obj.partido_img_candidato,
+                'partido_nombre_candidato': partido_obj.partido_nombre_candidato,
                 'votos': partido[1]
             })
         socketio.emit('votos',elecciones)

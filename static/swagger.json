@@ -137,7 +137,7 @@
         "tags": [
           "votacion"
         ],
-        "summary": "Resultado de las votaaciones",
+        "summary": "Resultado de las votaciones",
         "description": "Se devuelven todos los resultados sin sockets",
         "operationId": "resultado",
         "produces": [

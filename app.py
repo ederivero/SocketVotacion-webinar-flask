@@ -52,6 +52,7 @@ def create_tables():
 
 @app.route('/resultados')
 def resultado():
+    sess = obtain_session()
     result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
     elecciones = []
     for partido in result:

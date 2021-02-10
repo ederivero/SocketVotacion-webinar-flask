@@ -19,6 +19,10 @@
     {
       "name": "votacion",
       "description": "Los controladores de la API"
+    },
+    {
+      "name": "partido",
+      "description": "Los controladores de los Partidos"
     }
   ],
   "schemes": [
@@ -124,6 +128,24 @@
           },
           "500": {
             "description": "Data invalida"
+          }
+        }
+      }
+    },
+    "/partido": {
+      "get": {
+        "tags": [
+          "partido"
+        ],
+        "summary": "Listado de los partidos",
+        "description": "Devuelve todos los partidos que estan concursando",
+        "operationId": "partido",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de partidos"
           }
         }
       }

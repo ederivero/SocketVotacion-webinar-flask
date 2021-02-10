@@ -123,20 +123,22 @@ def registrar_voto():
         votante = VotanteModel.query.filter_by(votante_hash=hash).first()
         voto = VotoModel(partido, votante)
         voto.save()
-        # sess = obtain_session()
-        # # devolver los resultados de los votos
-        # result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
-        # elecciones = []
-        # for partido in result:
-        #     partido_obj = PartidoModel.query.filter_by(partido_id=partido[0]).first()
-        #     elecciones.append({
-        #         'partido_nombre':partido_obj.partido_nombre,
-        #         'partido_img_partido': partido_obj.partido_img_partido,
-        #         'partido_img_candidato': partido_obj.partido_img_candidato,
-        #         'partido_nombre_candidato': partido_obj.partido_nombre_candidato,
-        #         'votos': partido[1]
-        #     })
-        # socketio.emit('votos',elecciones)
+        sess = obtain_session()
+        # devolver los resultados de los votos
+        result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
+        sess.close()
+        elecciones = []
+
+        for partido in result:
+            partido_obj = PartidoModel.query.filter_by(partido_id=partido[0]).first()
+            elecciones.append({
+                'partido_nombre':partido_obj.partido_nombre,
+                'partido_img_partido': partido_obj.partido_img_partido,
+                'partido_img_candidato': partido_obj.partido_img_candidato,
+                'partido_nombre_candidato': partido_obj.partido_nombre_candidato,
+                'votos': partido[1]
+            })
+        socketio.emit('votos',elecciones)
         return {
             'success': True,
             'content': voto.json(),

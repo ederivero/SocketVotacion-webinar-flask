@@ -28,3 +28,4 @@ class VotoModel(bd.Model):
     def save(self):
         bd.session.add(self)
         bd.session.commit()
+        bd.session.close()

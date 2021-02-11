@@ -52,8 +52,8 @@ def create_tables():
 
 @app.route('/resultados')
 def resultado():
-    sess = obtain_session()
-    result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
+    # sess = obtain_session()
+    result = bd.session.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
     elecciones = []
     for partido in result:
         partido_obj = PartidoModel.query.filter_by(partido_id=partido[0]).first()
@@ -65,7 +65,8 @@ def resultado():
             'votos': partido[1]
         })
     print(elecciones)
-    sess.close()
+    # sess.close()
+    bd.session.close()
     return {
         'success': True,
         'content': elecciones,
@@ -125,8 +126,10 @@ def registrar_voto():
         voto.save()
         sess = obtain_session()
         # devolver los resultados de los votos
-        result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
-        sess.close()
+        # result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
+        result = bd.session.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
+        # sess.close()
+        bd.session.close()
         elecciones = []
 
         for partido in result:

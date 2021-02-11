@@ -34,6 +34,7 @@ class VotanteModel(bd.Model):
     def save(self):
         bd.session.add(self)
         bd.session.commit()
+        bd.session.close()
     
     def __str__(self):
         return self.votante_dni

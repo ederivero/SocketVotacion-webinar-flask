@@ -36,13 +36,13 @@ app.config['SECRET_KEY'] = 'webinar'
 socketio = SocketIO(app, cors_allowed_origins ='*')
 
 
-def obtain_session():
-    """ Get SQLAlchemy session """
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    session = sessionmaker()
-    # Bind the sessionmaker to engine
-    session.configure(bind=engine)
-    return session()
+# def obtain_session():
+#     """ Get SQLAlchemy session """
+#     engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+#     session = sessionmaker()
+#     # Bind the sessionmaker to engine
+#     session.configure(bind=engine)
+#     return session()
 
 @app.before_first_request
 def create_tables():
@@ -66,7 +66,7 @@ def resultado():
         })
     print(elecciones)
     # sess.close()
-    bd.session.close()
+    # bd.session.close()
     return {
         'success': True,
         'content': elecciones,
@@ -129,7 +129,7 @@ def registrar_voto():
         # result = sess.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
         result = bd.session.query(VotoModel.partido, func.count(VotoModel.partido).label('count')).group_by(VotoModel.partido).all()
         # sess.close()
-        bd.session.close()
+        # bd.session.close()
         elecciones = []
 
         for partido in result:
